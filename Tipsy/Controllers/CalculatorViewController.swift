@@ -18,6 +18,8 @@ class CalculatorViewController: UIViewController {
     
     //Ten percent tip is selected by default
     var tipPercentage = 0.1
+    //The minimum and default amountOfPeople
+    var amountOfPeople = 2
     
     @IBAction func tipChanged(_ sender: UIButton) {
         zeroPctButton.isSelected = false
@@ -37,10 +39,12 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        amountOfPeople = Int(sender.value)
+        splitNumberLabel.text = String(amountOfPeople)
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        print(tipPercentage)
+        print("\(amountOfPeople)")
     }
 }
 
