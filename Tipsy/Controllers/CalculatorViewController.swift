@@ -20,6 +20,7 @@ class CalculatorViewController: UIViewController {
     var tipPercentage = 0.1
     //The minimum and default amountOfPeople
     var amountOfPeople = 2
+    var valuePerPerson = 0.0
     
     @IBAction func tipChanged(_ sender: UIButton) {
         billTextField.endEditing(true)
@@ -48,8 +49,18 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        let valuePerPerson = (Double(billTextField.text ?? "0") ?? 0) * (1 + tipPercentage) / Double(amountOfPeople)
+        valuePerPerson = (Double(billTextField.text ?? "0") ?? 0) * (1 + tipPercentage) / Double(amountOfPeople)
         print(String(format: "%.2f", valuePerPerson))
+        performSegue(withIdentifier: "goToResults", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults" {
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.valuePerPerson = valuePerPerson
+            destinationVC.amountOfPeople = amountOfPeople
+            destinationVC.tipPercentage = tipPercentage
+        }
     }
 }
 
