@@ -22,6 +22,8 @@ class CalculatorViewController: UIViewController {
     var amountOfPeople = 2
     
     @IBAction func tipChanged(_ sender: UIButton) {
+        billTextField.endEditing(true)
+        
         zeroPctButton.isSelected = false
         tenPctButton.isSelected = false
         twentyPctButton.isSelected = false
@@ -39,12 +41,15 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        billTextField.endEditing(true)
+        
         amountOfPeople = Int(sender.value)
         splitNumberLabel.text = String(amountOfPeople)
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        print("\(amountOfPeople)")
+        let valuePerPerson = (Double(billTextField.text ?? "0") ?? 0) * (1 + tipPercentage) / Double(amountOfPeople)
+        print(String(format: "%.2f", valuePerPerson))
     }
 }
 
